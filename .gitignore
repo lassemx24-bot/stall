@@ -15,3 +15,6 @@ _original/
 
 # Alter Motorrad-Sound, wird nicht mehr benutzt
 sounds/motor.mp3
+
+# Erzeugte Figurenbilder in voller Größe (verkleinerte Kopien liegen in figures/)
+_neu/
