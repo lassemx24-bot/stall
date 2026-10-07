@@ -190,7 +190,8 @@
       platz = document.createElement('div');
       platz.id = 'sound-video';
       platz.className = 'figur__video';
-      document.getElementById('sound-hinweis').insertAdjacentElement('afterend', platz);
+      // Der Player steht ganz unten auf der Seite, unter „Weitere Figuren“.
+      main.appendChild(platz);
     }
     platz.hidden = false;
     platz.innerHTML = '<div id="sound-video-player"></div>';
