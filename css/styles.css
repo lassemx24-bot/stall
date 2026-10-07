@@ -221,7 +221,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   overflow: hidden;
   transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
 }
-.figur-karte:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: #d2cdc1; }
+.figur-karte:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--blue); }
 
 .figur-karte__bild { position: relative; aspect-ratio: 2 / 3; overflow: hidden; background: #fff; }
 .figur-karte__bild .figur-karte__zweit { position: absolute; inset: 0; opacity: 0; background: #fff; transition: opacity .25s, transform .5s var(--ease); }
