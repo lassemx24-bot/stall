@@ -11,7 +11,7 @@ var MENU = [
   { href: 'index.html', label: 'Start', seite: 'start' },
   { href: 'produkte.html', label: 'Produkte', seite: 'produkte' },
   { href: 'ranking.html', label: 'Ranking', seite: 'ranking' },
-  { href: 'wochenende.html', label: 'Rückblick', seite: 'wochenende' }
+  { href: 'wochenende.html', label: 'MXON 2026', seite: 'wochenende' }
 ];
 
 var ICONS = {
