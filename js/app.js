@@ -62,6 +62,34 @@ function figurKarte(f) {
     '</div></a></li>';
 }
 
+// ---------- Wertung (für Ranking- und Startseite) ----------
+
+function punkte(slug) {
+  return RANKING.reduce(function (summe, k) {
+    var platz = k.ranks.indexOf(slug);
+    return summe + (platz === -1 ? 0 : k.ranks.length - platz);
+  }, 0);
+}
+
+// Alle bewerteten Figuren, beste zuerst. Wer in keiner Kategorie steht, fehlt.
+function rangliste() {
+  return FIGUREN.map(function (f) { return f.slug; })
+    .filter(function (slug) { return punkte(slug) > 0; })
+    .sort(function (a, b) { return punkte(b) - punkte(a); });
+}
+
+function platzKarte(slug, i, bestwert) {
+  var f = findeFigur(slug);
+  return '<li><a class="platz' + (i === 0 ? ' platz--erster' : '') + '" href="' + figurLink(slug) + '">' +
+    '<span class="platz__nr">' + (i + 1) + '</span>' +
+    '<div class="platz__bild"><img src="' + esc(f.images[0].src) + '" alt=""/></div>' +
+    '<div class="platz__text">' +
+    '<p class="platz__name">' + esc(f.name) + '</p>' +
+    '<p class="platz__punkte">' + punkte(slug) + ' Punkte</p>' +
+    '<div class="balken"><span style="width:' + Math.round(punkte(slug) / bestwert * 100) + '%"></span></div>' +
+    '</div></a></li>';
+}
+
 // Spaltenzahl am großen Bildschirm (5, 4 oder 3) so wählen, dass in der
 // letzten Reihe möglichst wenig Plätze leer bleiben.
 function rasterKlasse(anzahl) {
