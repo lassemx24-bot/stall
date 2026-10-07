@@ -58,7 +58,7 @@
             return '<li><strong>' + esc(h.value) + '</strong><span>' + esc(h.label) + '</span></li>';
           }).join('') +
         '</ul>' +
-        (figur.sound ? '<p id="sound-hinweis" class="figur__hinweis">' + esc(figur.soundHinweis || 'Auf dem Bild sitzt ein Knopf.') + '</p>' : '') +
+        (figur.sound || figur.spruch ? '<p id="sound-hinweis" class="figur__hinweis">' + esc(figur.soundHinweis || 'Auf dem Bild sitzt ein Knopf.') + '</p>' : '') +
       '</div>' +
     '</section>' +
 
@@ -122,7 +122,7 @@
     main.querySelectorAll('[data-bild]').forEach(function (knopf) {
       knopf.setAttribute('aria-pressed', String(knopf.dataset.bild === bild.id));
     });
-    soundknopf.hidden = !(bild.knob && figur.sound);
+    soundknopf.hidden = !(bild.knob && (figur.sound || figur.spruch));
     if (bild.knob) {
       soundknopf.style.left = bild.knob.x * 100 + '%';
       soundknopf.style.top = bild.knob.y * 100 + '%';
@@ -144,7 +144,22 @@
     if (hinweis) hinweis.textContent = an ? (figur.soundLaeuft || 'Läuft.') : (figur.soundHinweis || 'Auf dem Bild sitzt ein Knopf.');
   }
 
+  // Figuren ohne Tondatei können sprechen: Der Browser liest figur.spruch vor.
+  // Sobald es eine Datei gibt (figur.sound), wird stattdessen die gespielt.
+  function sprich() {
+    if (!window.speechSynthesis) return;
+    var satz = new SpeechSynthesisUtterance(figur.spruch.text);
+    satz.lang = figur.spruch.sprache || 'de-DE';
+    satz.pitch = figur.spruch.hoehe === undefined ? 1 : figur.spruch.hoehe;
+    satz.rate = figur.spruch.tempo || 1;
+    satz.onend = function () { motor(false); };
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(satz);
+    motor(true);
+  }
+
   soundknopf.addEventListener('click', function () {
+    if (!figur.sound) { sprich(); return; }
     if (!audio) {
       audio = new Audio(figur.sound);
       audio.addEventListener('ended', function () { motor(false); });
