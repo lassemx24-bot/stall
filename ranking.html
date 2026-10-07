@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ranking — Der Stall</title>
+  <meta name="description" content="Dazu Mädchen, Aura, Schwanzlänge und Männlichkeit. Platz eins gibt fünf Punkte."/>
+  <meta name="theme-color" content="#f4f2ed"/>
+  <meta property="og:title" content="Ranking — Der Stall"/>
+  <meta property="og:image" content="og.jpg"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Outfit:wght@400;500;600&amp;display=swap"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body data-seite="ranking">
+  <main class="container seite">
+    <p class="eyebrow">Menü · Ranking</p>
+    <h1 class="h1">Die Wertung</h1>
+    <p class="lead">Aussehen, Name und Text, die alten Kategorien, und dazu Mädchen, Aura, Schwanzlänge und Männlichkeit. Platz eins gibt fünf Punkte, danach vier, drei, zwei, einen.</p>
+    <ol id="ranking-gesamt" class="wertung"></ol>
+
+    <section class="abschnitt">
+      <div class="abschnitt__kopf">
+        <div>
+          <p class="eyebrow" id="ranking-anzahl"></p>
+          <h2 class="h2">Alle Kategorien</h2>
+        </div>
+      </div>
+      <div id="ranking-kategorien" class="kategorien"></div>
+    </section>
+  </main>
+  <script src="js/daten.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/ranking.js"></script>
+</body>
+</html>

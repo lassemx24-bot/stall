@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Rückblick — Der Stall</title>
+  <meta name="description" content="Rückblick auf das Motocross of Nations in Ernée, 2. bis 4. Oktober 2026. Damit hat der Stall angefangen."/>
+  <meta name="theme-color" content="#f4f2ed"/>
+  <meta property="og:title" content="Rückblick — Der Stall"/>
+  <meta property="og:image" content="og.jpg"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Outfit:wght@400;500;600&amp;display=swap"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body data-seite="wochenende">
+  <main class="container seite">
+    <p class="eyebrow">Menü · Rückblick</p>
+    <h1 class="h1">Ernée, drei Tage</h1>
+    <p class="lead">Mit dem Wochenende am Circuit Raymond Demy hat der Stall angefangen. Das Starterpack war für die Fahrt dorthin gedacht, die Strecke steht bis heute auf den Verpackungen.</p>
+    <dl class="fakten" style="margin-top:40px">
+      <div class="karte">
+        <dt>Ort</dt>
+        <dd>Ernée, Circuit Raymond Demy</dd>
+      </div>
+      <div class="karte">
+        <dt>Termin</dt>
+        <dd>2. bis 4. Oktober 2026</dd>
+      </div>
+      <div class="karte">
+        <dt>Anlass</dt>
+        <dd>Motocross of Nations</dd>
+      </div>
+      <div class="karte">
+        <dt>Geblieben</dt>
+        <dd>Die Serie MXoN Ernée 2026</dd>
+      </div>
+    </dl>
+
+    <section class="abschnitt">
+      <p class="eyebrow">Die Strecke</p>
+      <h2 class="h2">Eine Runde in Ernée</h2>
+      <div class="video" id="strecken-video">
+        <iframe src="https://www.youtube-nocookie.com/embed/xSx48oFsgws?autoplay=1&amp;mute=1&amp;playsinline=1&amp;rel=0" title="Eine Runde auf der Strecke von Ernée" loading="lazy" allow="autoplay; accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <a class="btn btn--rot" style="margin-top:40px" href="produkte.html?serie=MXoN%20Ern%C3%A9e%202026">Zur Serie</a>
+  </main>
+  <script>
+    // YouTube spielt eingebettete Videos nicht ab, wenn die Seite per Doppelklick
+    // als Datei geöffnet wurde (Fehler 153). Dann steht hier ein Hinweis statt des Players.
+    if (window.location.protocol === 'file:') {
+      document.getElementById('strecken-video').innerHTML =
+        '<div class="video__hinweis"><strong>Das Video läuft so nicht.</strong>' +
+        '<p>Du hast die Seite als Datei geöffnet. Schließ dieses Fenster und starte die Seite ' +
+        'mit einem Doppelklick auf „Seite starten.bat“ im Ordner, dann spielt das Video hier.</p></div>';
+    }
+  </script>
+  <script src="js/daten.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

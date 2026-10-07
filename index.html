@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Der Stall — Fan-Actionfiguren</title>
+  <meta name="description" content="Der Stall: Fan-Actionfiguren in mehreren Serien, mit Ranking. Angefangen zum Motocross of Nations in Ernée."/>
+  <meta name="theme-color" content="#f4f2ed"/>
+  <meta property="og:title" content="Der Stall — Fan-Actionfiguren"/>
+  <meta property="og:image" content="og.jpg"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Outfit:wght@400;500;600&amp;display=swap"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body data-seite="start">
+  <main>
+    <section class="hero">
+      <img class="hero__bild" src="hero.jpg" alt="Motocross-Sprung vor der vollen Tribüne in Ernée"/>
+      <div class="container hero__inhalt">
+        <p class="eyebrow">Fan-Actionfiguren</p>
+        <h1 class="h1">Willkommen im Stall</h1>
+        <div class="hero__knoepfe">
+          <a class="btn btn--rot" href="produkte.html">Zu den Figuren</a>
+          <a class="btn btn--glas" href="ranking.html">Zum Ranking</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="container seite">
+      <section class="intro">
+        <div>
+          <p class="eyebrow">Der Stand</p>
+          <h2 class="h2"><span data-anzahl="figuren"></span> Figuren, <span data-anzahl="serien"></span> Serien</h2>
+        </div>
+        <div class="text">
+          <p>Angefangen hat es mit dem Starterpack zum Motocross of Nations in Ernée, Anfang Oktober 2026. Seitdem kommen Figuren dazu, die mit Motocross nichts mehr zu tun haben müssen.</p>
+          <p>Jede Figur hat ihre eigene Seite. Im Ranking steht, wer in welcher Kategorie vorn liegt.</p>
+        </div>
+      </section>
+
+      <section class="abschnitt">
+        <div class="abschnitt__kopf">
+          <div>
+            <p class="eyebrow">Aus dem Stall</p>
+            <h2 class="h2">Die Figuren</h2>
+          </div>
+          <a class="link" href="produkte.html">Alle Figuren
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+        <ul class="figuren-raster" data-figuren="4"></ul>
+      </section>
+    </div>
+  </main>
+  <script src="js/daten.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Bleibt auf dem Rechner und wird nicht veröffentlicht
+
+# Die ursprünglichen Grok-Dateien (nur Referenz)
+_original/
+
+# Originale der hochgeladenen Vorlagenbilder (Kopien liegen in figures/)
+/Beavis bild.webp
+/Butt-head.webp
+/images.jpg
+/strammerer-c-max.webp
+
+# Nur für die lokale Vorschau
+/Seite starten.bat
+.claude/
+
+# Alter Motorrad-Sound, wird nicht mehr benutzt
+sounds/motor.mp3
