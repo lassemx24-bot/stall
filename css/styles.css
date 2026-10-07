@@ -667,7 +667,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .figur__preis small { display: block; margin-top: 6px; font-size: .8125rem; color: var(--muted); }
 .marke-edition { padding: 6px 14px; border-radius: 999px; background: var(--blue); color: #fff; font-size: .75rem; font-weight: 500; white-space: nowrap; }
 .figur__kauf { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
-.figur__video { margin-top: 12px; max-width: 360px; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--ink); }
+.figur__video { margin-top: 12px; width: 200px; height: 200px; overflow: hidden; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--ink); }
 .figur__video iframe { display: block; width: 100%; height: 100%; border: 0; }
 .figur__hinweis { margin-top: 16px; font-size: .875rem; color: var(--muted); }
 

@@ -158,12 +158,33 @@
     motor(true);
   }
 
-  // Figuren mit figur.video spielen einen Ausschnitt eines YouTube-Videos in einem
-  // kleinen Player unter dem Hinweis ab. Der Ton bleibt bei YouTube, es wird nichts kopiert.
-  // Als Datei geöffnet (Doppelklick) verweigert YouTube das, dann spricht der Browser.
-  var videoTimer = null;
+  // Figuren mit figur.video spielen einen Ausschnitt eines YouTube-Videos: von
+  // video.start bis video.ende (Sekunden), video.mal oft hintereinander. Dafür
+  // erscheint kurz ein kleiner Player unter dem Hinweis und verschwindet danach wieder.
+  // Der Ton bleibt bei YouTube, es wird nichts kopiert. Ganz unsichtbar darf der
+  // Player laut YouTube nicht sein. Als Datei geöffnet (Doppelklick) verweigert
+  // YouTube die Wiedergabe, dann spricht der Browser.
+  var youtubeBereit = null;
+  var videoLaeuft = false;
+
+  function ladeYouTube() {
+    if (!youtubeBereit) {
+      youtubeBereit = new Promise(function (fertig) {
+        if (window.YT && window.YT.Player) { fertig(); return; }
+        window.onYouTubeIframeAPIReady = fertig;
+        var skript = document.createElement('script');
+        skript.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(skript);
+      });
+    }
+    return youtubeBereit;
+  }
+
   function spieleVideo() {
+    if (videoLaeuft) return;
+    videoLaeuft = true;
     var v = figur.video;
+    var start = v.start || 0;
     var platz = document.getElementById('sound-video');
     if (!platz) {
       platz = document.createElement('div');
@@ -171,12 +192,49 @@
       platz.className = 'figur__video';
       document.getElementById('sound-hinweis').insertAdjacentElement('afterend', platz);
     }
-    platz.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id) +
-      '?autoplay=1&playsinline=1&rel=0&start=' + (v.start || 0) + '&end=' + v.ende +
-      '" title="' + esc(figur.name) + '" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+    platz.hidden = false;
+    platz.innerHTML = '<div id="sound-video-player"></div>';
     motor(true);
-    window.clearTimeout(videoTimer);
-    videoTimer = window.setTimeout(function () { motor(false); }, (v.ende - (v.start || 0) + 2) * 1000);
+
+    ladeYouTube().then(function () {
+      var runde = 1;
+      var takt = null;
+      var notaus = null;
+
+      function schluss() {
+        window.clearInterval(takt);
+        window.clearTimeout(notaus);
+        try { player.destroy(); } catch (e) { /* schon weg */ }
+        platz.hidden = true;
+        platz.innerHTML = '';
+        videoLaeuft = false;
+        motor(false);
+      }
+
+      var player = new window.YT.Player('sound-video-player', {
+        host: 'https://www.youtube-nocookie.com',
+        videoId: v.id,
+        playerVars: { autoplay: 1, controls: 0, disablekb: 1, playsinline: 1, rel: 0, start: start },
+        events: {
+          onReady: function (e) { e.target.playVideo(); },
+          onError: schluss,
+          onStateChange: function (e) {
+            if (e.data !== window.YT.PlayerState.PLAYING || takt) return;
+            takt = window.setInterval(function () {
+              if (player.getCurrentTime() < v.ende) return;
+              if (runde < (v.mal || 1)) {
+                runde += 1;
+                player.seekTo(start, true);
+              } else {
+                schluss();
+              }
+            }, 40);
+          }
+        }
+      });
+      // Falls das Video gar nicht startet (Werbung, blockiert), räumt das hier auf.
+      notaus = window.setTimeout(schluss, 30000);
+    });
   }
 
   soundknopf.addEventListener('click', function () {
