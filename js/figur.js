@@ -58,7 +58,7 @@
             return '<li><strong>' + esc(h.value) + '</strong><span>' + esc(h.label) + '</span></li>';
           }).join('') +
         '</ul>' +
-        (figur.sound || figur.spruch ? '<p id="sound-hinweis" class="figur__hinweis">' + esc(figur.soundHinweis || 'Auf dem Bild sitzt ein Knopf.') + '</p>' : '') +
+        (figur.sound || figur.spruch || figur.video ? '<p id="sound-hinweis" class="figur__hinweis">' + esc(figur.soundHinweis || 'Auf dem Bild sitzt ein Knopf.') + '</p>' : '') +
       '</div>' +
     '</section>' +
 
@@ -122,7 +122,7 @@
     main.querySelectorAll('[data-bild]').forEach(function (knopf) {
       knopf.setAttribute('aria-pressed', String(knopf.dataset.bild === bild.id));
     });
-    soundknopf.hidden = !(bild.knob && (figur.sound || figur.spruch));
+    soundknopf.hidden = !(bild.knob && (figur.sound || figur.spruch || figur.video));
     if (bild.knob) {
       soundknopf.style.left = bild.knob.x * 100 + '%';
       soundknopf.style.top = bild.knob.y * 100 + '%';
@@ -158,8 +158,30 @@
     motor(true);
   }
 
+  // Figuren mit figur.video spielen einen Ausschnitt eines YouTube-Videos in einem
+  // kleinen Player unter dem Hinweis ab. Der Ton bleibt bei YouTube, es wird nichts kopiert.
+  // Als Datei geöffnet (Doppelklick) verweigert YouTube das, dann spricht der Browser.
+  var videoTimer = null;
+  function spieleVideo() {
+    var v = figur.video;
+    var platz = document.getElementById('sound-video');
+    if (!platz) {
+      platz = document.createElement('div');
+      platz.id = 'sound-video';
+      platz.className = 'figur__video';
+      document.getElementById('sound-hinweis').insertAdjacentElement('afterend', platz);
+    }
+    platz.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id) +
+      '?autoplay=1&playsinline=1&rel=0&start=' + (v.start || 0) + '&end=' + v.ende +
+      '" title="' + esc(figur.name) + '" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+    motor(true);
+    window.clearTimeout(videoTimer);
+    videoTimer = window.setTimeout(function () { motor(false); }, (v.ende - (v.start || 0) + 2) * 1000);
+  }
+
   soundknopf.addEventListener('click', function () {
-    if (!figur.sound) { sprich(); return; }
+    if (figur.video && window.location.protocol !== 'file:') { spieleVideo(); return; }
+    if (!figur.sound) { if (figur.spruch) sprich(); return; }
     if (!audio) {
       audio = new Audio(figur.sound);
       audio.addEventListener('ended', function () { motor(false); });
