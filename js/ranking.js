@@ -2,6 +2,17 @@
 
 var reihenfolge = rangliste();
 
+// Spalten so wählen, dass die Reihen möglichst aufgehen (8 Figuren -> 4 Spalten).
+function spalten(anzahl) {
+  var beste = 5, luecke = 99;
+  [5, 4, 3].forEach(function (n) {
+    var leer = (n - anzahl % n) % n;
+    if (leer < luecke) { luecke = leer; beste = n; }
+  });
+  return beste;
+}
+document.querySelector('main').style.setProperty('--rang-spalten', spalten(reihenfolge.length));
+
 document.getElementById('ranking-gesamt').innerHTML = reihenfolge.map(function (slug, i) {
   return platzKarte(slug, i, punkte(reihenfolge[0]));
 }).join('');

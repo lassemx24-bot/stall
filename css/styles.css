@@ -728,7 +728,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .platz--erster .balken { background: rgba(255, 255, 255, .16); }
 
 @media (min-width: 900px) {
-  .wertung { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--gap); }
+  .wertung { grid-template-columns: repeat(var(--rang-spalten, 5), minmax(0, 1fr)); gap: var(--gap); }
   .platz { display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }
   .platz__nr { position: absolute; top: 12px; left: 14px; z-index: 1; font-size: 3rem; color: var(--ink); }
   .platz__bild { aspect-ratio: 4 / 5; border: 0; border-radius: 0; }
@@ -741,7 +741,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .kategorie { display: flex; flex-direction: column; }
 .kategorie__notiz { margin-top: 4px; font-size: .8125rem; color: var(--muted); }
 .kategorie__text { margin: 14px 0 20px; font-size: .9375rem; line-height: 1.55; }
-.rang-liste { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: auto; }
+.rang-liste { display: grid; grid-template-columns: repeat(var(--rang-spalten, 5), minmax(0, 1fr)); gap: 10px; margin-top: auto; }
 .rang { display: block; font-size: .75rem; font-weight: 500; line-height: 1.25; text-align: center; }
 .rang__bild { position: relative; aspect-ratio: 3 / 4; margin-bottom: 6px; overflow: hidden; border-radius: var(--r-sm); background: #fff; border: 1px solid var(--line); transition: border-color .2s; }
 .rang:hover .rang__bild { border-color: var(--ink); }
