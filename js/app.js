@@ -51,7 +51,10 @@ function bildStil(bild) {
 
 // Die Karte einer Figur, wie sie auf Start, Produkte und der Figurenseite steht.
 function figurKarte(f) {
-  return '<li><a class="figur-karte" href="' + figurLink(f.slug) + '">' +
+  // Das zweite Bild (meist die Dreiviertel-Ansicht) erscheint, wenn die Maus auf der Karte ist.
+  var zweit = f.images[1];
+  return '<li><a class="figur-karte" href="' + figurLink(f.slug) + '"' +
+    (zweit ? ' data-zweit="' + esc(zweit.src) + '" data-zweit-stil="' + bildStil(zweit) + '"' : '') + '>' +
     '<div class="figur-karte__bild"><img src="' + esc(f.images[0].src) + '" alt="' + esc(f.name) + '" loading="lazy" style="' + bildStil(f.images[0]) + '"/></div>' +
     '<div class="figur-karte__text">' +
     '<p class="figur-karte__serie">' + esc(f.series) + '</p>' +
@@ -101,6 +104,19 @@ function rasterKlasse(anzahl) {
   });
   return beste === 5 ? '' : ' figuren-raster--' + beste;
 }
+
+// Das zweite Bild einer Karte wird erst geladen, wenn die Maus zum ersten Mal
+// darauf kommt. So laden Handys (ohne Maus) es gar nicht.
+document.addEventListener('mouseover', function (e) {
+  var karte = e.target.closest && e.target.closest('.figur-karte[data-zweit]');
+  if (!karte || karte.querySelector('.figur-karte__zweit')) return;
+  var bild = document.createElement('img');
+  bild.className = 'figur-karte__zweit';
+  bild.alt = '';
+  bild.style.cssText = karte.dataset.zweitStil;
+  bild.src = karte.dataset.zweit;
+  karte.querySelector('.figur-karte__bild').appendChild(bild);
+});
 
 // ---------- Warenkorb ----------
 
