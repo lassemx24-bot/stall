@@ -301,7 +301,10 @@ function baueRahmen() {
   // <ul data-figuren> wird mit allen Figuren gefüllt,
   // <ul data-figuren="4"> nur mit den ersten vier.
   document.querySelectorAll('[data-figuren]').forEach(function (liste) {
-    var auswahl = FIGUREN.slice(0, Number(liste.dataset.figuren) || FIGUREN.length);
+    // <ul data-figuren data-serie="Goated"> nur mit den Figuren dieser Serie.
+    var auswahl = FIGUREN
+      .filter(function (f) { return !liste.dataset.serie || f.series === liste.dataset.serie; })
+      .slice(0, Number(liste.dataset.figuren) || FIGUREN.length);
     liste.className += rasterKlasse(auswahl.length);
     liste.innerHTML = auswahl.map(figurKarte).join('');
   });
